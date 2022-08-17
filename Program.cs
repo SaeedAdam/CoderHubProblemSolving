@@ -10,11 +10,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(isMirrored(191));
-        Console.WriteLine(isMirrored(654));
-        Console.WriteLine(isMirrored(164461));
-        Console.WriteLine(isMirrored(11));
-        Console.WriteLine(isMirrored(1));
+        Console.WriteLine(sum_two_smallest_nums(new[] { 2, 5, 6, 7, 3 }));
+        Console.WriteLine(sum_two_smallest_nums(new[] { 4, 3, 60, 9 }));
+        Console.WriteLine(sum_two_smallest_nums(new[] { 50, 1, 1, 4 }));
+        Console.WriteLine(sum_two_smallest_nums(new[] { 7, 8, 60, 100 }));
 
 
         Console.ReadLine();
@@ -439,7 +438,7 @@ public class Program
 
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < word.Length-1; i++)
+        for (int i = 0; i < word.Length - 1; i++)
         {
             sb.Append(word[i]);
         }
@@ -545,7 +544,7 @@ public class Program
         int counter = 0;
         int i = num.IndexOf('.');
 
-        for (int j = i; j < num.Length-1; j++)
+        for (int j = i; j < num.Length - 1; j++)
         {
             counter++;
         }
@@ -559,7 +558,7 @@ public class Program
         string input = num.ToString();
         StringBuilder sb = new StringBuilder();
 
-        for (int i = input.Length-1; i >= 0; i--)
+        for (int i = input.Length - 1; i >= 0; i--)
         {
             sb.Append(input[i]);
         }
@@ -568,4 +567,66 @@ public class Program
 
     }
 
+    public static int sum_two_smallest_nums(int[] arr)
+    {
+        // write your code here
+        int smallest = arr[0];
+        int small = arr[1];
+
+
+        for (int i = 2; i < arr.Length; i++)
+        {
+            if (arr[i] < smallest)
+            {
+                smallest = arr[i];
+                continue;
+            }
+
+            if (arr[i] >= small) continue;
+
+            small = arr[i];
+        }
+
+        return small + smallest;
+    }
+
+    public static int number_sum(int num)
+    {
+        // write your code here
+        int sum = 0;
+
+        for (int i = 1; i <= num; i++)
+        {
+            sum += i;
+        }
+
+        return sum;
+    }
+
+    public static string reverse_words(string str1, string str2)
+    {
+        // write your code here
+        return $"{str2}, {str1}";
+
+    }
+
+    public static bool stringCheck(string[] value)
+    {
+        // write your code here
+        for (int i = 0; i < value.Length-1; i++)
+        {
+            if (!value[i].Equals(value[i + 1]))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //public static bool kSumSubset(string dateString)
+    //{
+    //    // write your code here
+
+    //}
 }
