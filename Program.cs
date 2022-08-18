@@ -10,15 +10,16 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(sum_two_smallest_nums(new[] { 2, 5, 6, 7, 3 }));
-        Console.WriteLine(sum_two_smallest_nums(new[] { 4, 3, 60, 9 }));
-        Console.WriteLine(sum_two_smallest_nums(new[] { 50, 1, 1, 4 }));
-        Console.WriteLine(sum_two_smallest_nums(new[] { 7, 8, 60, 100 }));
+        Console.WriteLine(find_prefix(new []{"Nouf"}));
 
 
         Console.ReadLine();
     }
 
+
+
+
+    #region EasyProblems
     private static int[] remove_duplicate(int[] arr)
     {
         // write your code here
@@ -624,9 +625,93 @@ public class Program
         return true;
     }
 
-    //public static bool kSumSubset(string dateString)
-    //{
-    //    // write your code here
+    public static bool kSumSubset(string dateString)
+    {
+        // write your code here
+        string date = string.Empty;
 
-    //}
+        date = dateString.Substring(0, 4);
+
+        int numDate = int.Parse(date);
+
+        return numDate is <= 2018 and >= 1823;
+    }
+
+    public static int last_elm(int[] arr)
+    {
+        // write your code here
+        return arr[^1];
+
+    }
+
+    public static int[] get_duplicate_elements(int[] arr)
+    {
+        // write your code here
+
+        var sortedArray = new List<int>();
+
+        Array.Sort(arr);
+
+        for (int i = 0; i < arr.Length-1; i++)
+        {
+            if (arr[i] == arr[i+1])
+            {
+                if (sortedArray.Contains(arr[i]))
+                {
+                    continue;
+                }
+                sortedArray.Add(arr[i]);
+            }
+        }
+
+        arr = sortedArray.ToArray();
+        return arr;
+    }
+    #endregion
+
+    #region MediumProblems
+
+    public static string[] find_prefix(string[] words, string text)
+    {
+        // write your code here
+        var res = new List<string>();
+
+        foreach (var word in words)
+        {
+            if (word.Substring(0, 2).ToLower().Equals(text.ToLower()))
+            {
+                res.Add(word);
+            }
+        }
+
+        if (res.Count == 0)
+        {
+            res.Add("No matches found");
+        }
+
+        return res.ToArray();
+    }
+
+    public static bool find_element(int[] elements_array, int element)
+    {
+        // write your code here
+        foreach (var i in elements_array)
+        {
+            if (elements_array.Contains(element))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    #endregion
+
+    #region HardProblems
+
+
+
+    #endregion
+
 }
