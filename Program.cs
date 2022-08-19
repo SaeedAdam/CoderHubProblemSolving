@@ -10,7 +10,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(find_prefix(new []{"Nouf"}));
+        Console.WriteLine(smallest_number(new[] { 13, 2, 1, 4, 106 }));
+        Console.WriteLine(smallest_number(new[] { 90, 87, 56, 33, 83 }));
+        Console.WriteLine(smallest_number(new[] { 91, 67, 223, 943, 34 }));
+        Console.WriteLine(smallest_number(new[] { 43, 3, -5, 205 }));
 
 
         Console.ReadLine();
@@ -704,6 +707,36 @@ public class Program
         }
 
         return false;
+    }
+
+    public static bool timePeriod(string date1, string date2)
+    {
+        // write your code here
+        if (DateTime.Parse(date1) < DateTime.Parse(date2))
+        {
+            if (DateTime.Parse(date1) < DateTime.Today && DateTime.Parse(date2) < DateTime.Today)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static int smallest_number(int[] arr)
+    {
+        // write your code here
+        int smallest = arr[1];
+
+        foreach (var i in arr)
+        {
+            if (i < smallest)
+            {
+                smallest = i;
+            }
+        }
+
+        return smallest;
     }
 
     #endregion
