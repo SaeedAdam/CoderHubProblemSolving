@@ -10,10 +10,14 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(smallest_number(new[] { 13, 2, 1, 4, 106 }));
-        Console.WriteLine(smallest_number(new[] { 90, 87, 56, 33, 83 }));
-        Console.WriteLine(smallest_number(new[] { 91, 67, 223, 943, 34 }));
-        Console.WriteLine(smallest_number(new[] { 43, 3, -5, 205 }));
+        Console.WriteLine(str_len_comparison(new[] { "A", "B"}));
+        Console.WriteLine(str_len_comparison(new[] { "'Khalid'", "'Sultan'", "'AlDana'", "'Johrah'", "'Ghadah'" }));
+        Console.WriteLine(str_len_comparison(new[] { "Satr", "CoderHub" }));
+        Console.WriteLine(str_len_comparison(new[] { "123", "456", "789" }));
+
+        List<int> newInts = new List<int>();
+
+        newInts.Sum();
 
 
         Console.ReadLine();
@@ -737,6 +741,25 @@ public class Program
         }
 
         return smallest;
+    }
+
+    public static bool str_len_comparison(string[] words)
+    {
+        // write your code here
+        int len = words[0].Length;
+
+        foreach (string word in words)
+        {
+            int len2 = word.Length;
+            if (len == len2)
+            {
+                continue;
+            }
+
+            return false;
+        }
+
+        return true;
     }
 
     #endregion
