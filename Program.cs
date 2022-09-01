@@ -1,8 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualBasic.CompilerServices;
+﻿using System.Text;
 
 namespace CoderHub;
 
@@ -10,10 +6,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(str_len_comparison(new[] { "A", "B"}));
-        Console.WriteLine(str_len_comparison(new[] { "'Khalid'", "'Sultan'", "'AlDana'", "'Johrah'", "'Ghadah'" }));
-        Console.WriteLine(str_len_comparison(new[] { "Satr", "CoderHub" }));
-        Console.WriteLine(str_len_comparison(new[] { "123", "456", "789" }));
+        Console.WriteLine(checkPalindrome("aabaa"));
 
         List<int> newInts = new List<int>();
 
@@ -621,7 +614,7 @@ public class Program
     public static bool stringCheck(string[] value)
     {
         // write your code here
-        for (int i = 0; i < value.Length-1; i++)
+        for (int i = 0; i < value.Length - 1; i++)
         {
             if (!value[i].Equals(value[i + 1]))
             {
@@ -659,9 +652,9 @@ public class Program
 
         Array.Sort(arr);
 
-        for (int i = 0; i < arr.Length-1; i++)
+        for (int i = 0; i < arr.Length - 1; i++)
         {
-            if (arr[i] == arr[i+1])
+            if (arr[i] == arr[i + 1])
             {
                 if (sortedArray.Contains(arr[i]))
                 {
@@ -760,6 +753,59 @@ public class Program
         }
 
         return true;
+    }
+
+    public static bool[] solution(int[] numbers, int left, int right)
+    {
+        List<bool> result = new List<bool>();
+        List<int> range = new List<int>();
+
+        for (int i = left; i <= right; i++)
+        {
+            range.Add(i);
+        }
+
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            foreach (int j in range)
+            {
+                if ((i + 1) * j == numbers[i])
+                {
+                    result.Add(true);
+                    break;
+                }
+
+                if (j == right)
+                {
+                    result.Add(false);
+                }
+            }
+        }
+
+        return result.ToArray();
+    }
+
+    public static int solution(string pattern, string source)
+    {
+        int result = 0;
+        List<char> vowels = new List<char>() { 'a', 'e', 'i', 'o', 'u', 'y' };
+
+        int substringLength = pattern.Length;
+
+        for (int i = 0; i < source.Length; i++)
+        {
+            foreach (var num in pattern)
+            {
+
+            }
+        }
+
+        return result;
+    }
+
+    public static bool checkPalindrome(string inputString)
+    {
+        return inputString.ToCharArray().SequenceEqual(inputString.Reverse());
     }
 
     #endregion
