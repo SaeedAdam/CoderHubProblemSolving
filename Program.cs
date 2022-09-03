@@ -6,7 +6,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(checkPalindrome("aabaa"));
+        Console.WriteLine(adjacentElementsProduct(new[] { 3, 6, -2, -5, 7, 3 }));
 
         List<int> newInts = new List<int>();
 
@@ -806,6 +806,23 @@ public class Program
     public static bool checkPalindrome(string inputString)
     {
         return inputString.ToCharArray().SequenceEqual(inputString.Reverse());
+    }
+
+    public static int adjacentElementsProduct(int[] inputArray)
+    {
+        int res = inputArray[0] * inputArray[1];
+
+        for (int i = 0; i < inputArray.Length - 1; i++)
+        {
+            int prod = inputArray[i] * inputArray[i + 1];
+
+            if (prod > res)
+            {
+                res = prod;
+            }
+        }
+
+        return res;
     }
 
     #endregion
