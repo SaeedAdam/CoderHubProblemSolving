@@ -6,7 +6,10 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(adjacentElementsProduct(new[] { 3, 6, -2, -5, 7, 3 }));
+        Console.WriteLine(date_format("2020/1/1"));
+        Console.WriteLine(date_format("2019/12/28"));
+        Console.WriteLine(date_format("2010/10/30"));
+        Console.WriteLine(date_format("2013/11/29"));
 
         List<int> newInts = new List<int>();
 
@@ -429,24 +432,6 @@ public class Program
         return sb.ToString().Trim();
     }
 
-    private static string deleteLastChar(string word)
-    {
-        // write your code here
-        if (word.Length == 1)
-        {
-            return string.Empty;
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < word.Length - 1; i++)
-        {
-            sb.Append(word[i]);
-        }
-
-        return sb.ToString();
-    }
-
     public static string less_or_more_than_zero(int number)
     {
         return number switch
@@ -825,6 +810,63 @@ public class Program
         return res;
     }
 
+    public static int countWords(string txt)
+    {
+        int numberOfWords = 1;
+
+        foreach (char c in txt)
+        {
+            if (c == ' ')
+            {
+                numberOfWords++;
+            }
+        }
+
+        return numberOfWords;
+    }
+
+    public static string deleteLastChar(string word)
+    {
+        if (word.Length == 1)
+        {
+            return "";
+        }
+
+        return word.Substring(0, word.Length - 1);
+    }
+
+    private static string date_format(string date)
+    {
+        var year = "";
+        var month = "";
+        var day = "";
+        var counter = 0;
+
+        foreach (var character in date)
+        {
+            if (character == '/')
+            {
+                counter++;
+                continue;
+            }
+
+            if (counter == 0)
+            {
+                year += character;
+                continue;
+            }
+
+            if (counter == 1)
+            {
+                day += character;
+                continue;
+            }
+
+            month += character;
+        }
+
+        return $"{date} | {date.Replace('/', '-')} | {day}/{month}/{year}";
+    }
     #endregion
 
     #region HardProblems
