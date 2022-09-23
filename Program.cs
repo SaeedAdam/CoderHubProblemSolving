@@ -6,15 +6,15 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(date_format("2020/1/1"));
-        Console.WriteLine(date_format("2019/12/28"));
-        Console.WriteLine(date_format("2010/10/30"));
-        Console.WriteLine(date_format("2013/11/29"));
+        Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "193.168.10.20", "221.155.1.5", "194.200.1.5", "192.168.1.2" }));
+        Console.WriteLine(get_available_IPs("192.168.1.1", "222.155.1.5", new[] { "193.168.10.20", "155.155.1.5", "194.200.1.5", "192.168.1.2" }));
+        Console.WriteLine(get_available_IPs("1.1.1.1", "255.255.255.255", new[] { "193.168.10.20", "221.155.1.5", "194.200.1.5", "192.168.1.2" }));
+        Console.WriteLine(get_available_IPs("191.250.1.1", "222.230.1.0", new[] { "221.155.1.5", "193.168.10.20", "191.251.1.1", "191.240.1.1" }));
+        //Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "194.200.1.5", "193.168.10.20", "192.168.1.2" }));
+        //Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "194.200.1.5", "193.168.10.20", "192.168.1.2" }));
+        //Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "194.200.1.5", "193.168.10.20", "192.168.1.2" }));
 
-        List<int> newInts = new List<int>();
-
-        newInts.Sum();
-
+        //Console.WriteLine(IpToDec("192.168.10.20"));
 
         Console.ReadLine();
     }
@@ -875,4 +875,140 @@ public class Program
 
     #endregion
 
+    #region National Day
+    public static int getCentury(int year)
+    {
+        // write your code here
+        return (year + 99) / 100;
+    }
+
+    public static int findElement92(int[] numbers)
+    {
+        // write your code here
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            if (numbers[i] == 92)
+            {
+                return i;
+            }
+        }
+
+        return 92;
+    }
+
+    public static int[] getFirstLastEl(int[] numbers)
+    {
+        // write your code here
+        List<int> resList = new List<int>();
+
+        resList.Add(numbers[0]);
+
+        if (numbers.Length > 1)
+        {
+            resList.Add(numbers[^1]);
+        }
+
+        return resList.ToArray();
+    }
+
+    public static int[] extractNumber(int num, int[] nums)
+    {
+        // write your code here
+        if (!Array.Exists(nums, i => i == num))
+        {
+            return nums;
+        }
+
+        List<int> resList = new List<int>();
+
+        int counter = 0;
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] == num)
+            {
+                counter++;
+                continue;
+            }
+
+            resList.Add(nums[i]);
+        }
+
+        for (int j = 0; j < counter; j++)
+        {
+            resList.Add(num);
+        }
+
+        return resList.ToArray();
+    }
+
+    public static string yearsSinceNationalDay(int year)
+    {
+        // write your code here
+        return year < 1930 ? "Not Valid Year Entry" : (year - 1930).ToString();
+    }
+
+    public static string[] get_available_IPs(string ip1, string ip2, string[] addresses)
+    {
+        // write your code here
+
+        List<string> result = new List<string>();
+
+        long ip1Number = IPAddressToDecimal(ip1);
+        long ip2Number = IPAddressToDecimal(ip2);
+
+        long min = IPAddressToDecimal(addresses[0]);
+        long max = 0;
+        int counter = 0;
+
+        foreach (var avAddress in addresses)
+        {
+            long add = IPAddressToDecimal(avAddress);
+
+            if (add >= ip1Number && add <= ip2Number)
+            {
+                if (add <= min)
+                {
+                    min = add;
+                    result.Add(avAddress);
+                }
+                else
+                {
+                    result.Insert(counter, avAddress);
+                    if (add > max)
+                    {
+                        max = add;
+                    }
+                    counter++;
+                }
+            }
+        }
+
+        return result.ToArray();
+    }
+
+    public static long IPAddressToDecimal(string ipAddress)
+    {
+        // IP to Dec formula = 16777216*w + 65536*x + 256*y + z 
+        // where IP Address = w.x.y.z
+
+        // Get the indices of dots
+        int firstDotIndex = ipAddress.IndexOf('.');
+        int secondDotIndex = ipAddress.IndexOf('.', firstDotIndex + 1);
+        int thirdDotIndex = ipAddress.IndexOf('.', secondDotIndex + 1);
+
+        // Separate IP sections and convert to int
+        int sec1 = int.Parse(ipAddress.Substring(0, firstDotIndex));
+        int sec2 = int.Parse(ipAddress.Substring(firstDotIndex + 1, secondDotIndex - firstDotIndex - 1));
+        int sec3 = int.Parse(ipAddress.Substring(secondDotIndex + 1, thirdDotIndex - secondDotIndex - 1));
+        int sec4 = int.Parse(ipAddress.Substring(thirdDotIndex + 1));
+
+        // Calculate decimal from IP
+        var res = 16777216 * (long)sec1 + 65536 * (long)sec2 + 256 * (long)sec3 + (long)sec4;
+
+        return res;
+    }
+
+
+    #endregion
 }
