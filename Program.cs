@@ -6,15 +6,11 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "193.168.10.20", "221.155.1.5", "194.200.1.5", "192.168.1.2" }));
-        Console.WriteLine(get_available_IPs("192.168.1.1", "222.155.1.5", new[] { "193.168.10.20", "155.155.1.5", "194.200.1.5", "192.168.1.2" }));
-        Console.WriteLine(get_available_IPs("1.1.1.1", "255.255.255.255", new[] { "193.168.10.20", "221.155.1.5", "194.200.1.5", "192.168.1.2" }));
-        Console.WriteLine(get_available_IPs("191.250.1.1", "222.230.1.0", new[] { "221.155.1.5", "193.168.10.20", "191.251.1.1", "191.240.1.1" }));
-        //Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "194.200.1.5", "193.168.10.20", "192.168.1.2" }));
-        //Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "194.200.1.5", "193.168.10.20", "192.168.1.2" }));
-        //Console.WriteLine(get_available_IPs("192.168.1.1", "220.150.1.0", new[] { "194.200.1.5", "193.168.10.20", "192.168.1.2" }));
-
-        //Console.WriteLine(IpToDec("192.168.10.20"));
+        fillListWithRange(1, 10);
+        Console.WriteLine(get_king_names(1932, 1962));
+        Console.WriteLine(get_king_names(1965, 1980));
+        Console.WriteLine(get_king_names(1980, 2010));
+        Console.WriteLine(get_king_names(2005, 2022));
 
         Console.ReadLine();
     }
@@ -1009,6 +1005,178 @@ public class Program
         return res;
     }
 
+    public static string getKingName(int nationalDay)
+    {
+        // write your code here
+        if (nationalDay is >= 1 and <= 21)
+        {
+            return "عبدالعزيز";
+        }
+        if (nationalDay is >= 22 and <= 32)
+        {
+            return "سعود";
+        }
+        if (nationalDay is >= 32 and <= 42)
+        {
+            return "فيصل";
+        }
+        if (nationalDay is >= 43 and <= 50)
+        {
+            return "خالد";
+        }
+        if (nationalDay is >= 51 and <= 74)
+        {
+            return "فهد";
+        }
+        if (nationalDay is >= 75 and <= 84)
+        {
+            return "عبدالله";
+        }
+        if (nationalDay is >= 85 and <= 92)
+        {
+            return "سلمان";
+        }
+
+        return "Not valid entry.";
+    }
+
+    public static int remaining_download_time(int file_size, int[] bytes_downloaded, int minutes_of_observation)
+    {
+        // write your code here
+        if (!bytes_downloaded.Any()) return file_size;
+
+        int total = bytes_downloaded.Sum();
+
+        IEnumerable<int> trr = bytes_downloaded.Reverse();
+
+        int d = trr.Take(minutes_of_observation).Sum();
+
+        var avg = d / minutes_of_observation;
+
+        return (file_size - total) / avg;
+    }
+
+    public static string[] get_king_names(int year1, int year2)
+    {
+        // write your code here
+        var azoz = fillListWithRange(1932, 1953);
+        var saud = fillListWithRange(1953, 1964);
+        var faisal = fillListWithRange(1964, 1975);
+        var khalid = fillListWithRange(1975, 1982);
+        var fahad = fillListWithRange(1982, 2005);
+        var abdullah = fillListWithRange(2005, 2015);
+        var salman = fillListWithRange(2015, 2022);
+
+        List<string> names = new List<string>();
+
+        for (int i = year1; i <= year2; i++)
+        {
+            if (azoz.Exists(y => y == i))
+            {
+                names.Add("عبدالعزيز");
+                break;
+            }
+        }
+        for (int i = year1; i <= year2; i++)
+        {
+            if (saud.Exists(y => y == i))
+            {
+                names.Add("سعود");
+                break;
+            }
+        }
+        for (int i = year1; i <= year2; i++)
+        {
+            if (faisal.Exists(y => y == i))
+            {
+                names.Add("فيصل");
+                break;
+            }
+        }
+        for (int i = year1; i <= year2; i++)
+        {
+            if (khalid.Exists(y => y == i))
+            {
+                names.Add("خالد");
+                break;
+            }
+        }
+        for (int i = year1; i <= year2; i++)
+        {
+            if (fahad.Exists(y => y == i))
+            {
+                names.Add("فهد");
+                break;
+            }
+        }
+        for (int i = year1; i <= year2; i++)
+        {
+            if (abdullah.Exists(y => y == i))
+            {
+                names.Add("عبدالله");
+                break;
+            }
+        }
+        for (int i = year1; i <= year2; i++)
+        {
+            if (salman.Exists(y => y == i))
+            {
+                names.Add("سلمان");
+                break;
+            }
+        }
+
+
+        return names.ToArray();
+    }
 
     #endregion
+
+    public static List<int> fillListWithRange(int from, int to)
+    {
+        List<int> res = new List<int>();
+
+        for (int i = from; i <= to; i++)
+        {
+            res.Add(i);
+        }
+
+
+        return res;
+    }
 }
+
+
+//List<string> names = new List<string>();
+
+//if ((1932 <= year2 && 1932 >= year1) || (1953 >= year1 && 1953 <= year2))
+//{
+//    names.Add("عبدالعزيز");
+//}
+//if ((1953 <= year2 && 1953 >= year1) || (1964 >= year1 && 1964 <= year2))
+//{
+//    names.Add("سعود");
+//}
+//if ((1964 <= year2 && 1964 >= year1) || (1975 >= year1 && 1975 <= year2))
+//{
+//    names.Add("فيصل");
+//}
+//if ((1975 <= year2 && 1975 >= year1) || (1982 >= year1 && 1982 <= year2))
+//{
+//    names.Add("خالد");
+//}
+//if ((1982 <= year2 && 1982 >= year1) || (2005 >= year1 && 2005 <= year2))
+//{
+//    names.Add("فهد");
+//}
+//if ((2005 <= year2 && 2005 >= year1) || (2015 >= year1 && 2015 <= year2))
+//{
+//    names.Add("عبدالله");
+//}
+//if ((2015 <= year2 && 2015 >= year1) || (2022 >= year1 && 2022 <= year2))
+//{
+//    names.Add("سلمان");
+//}
+
+
+//return names.ToArray();
