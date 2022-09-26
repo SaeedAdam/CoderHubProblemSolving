@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CoderHub;
 
@@ -6,16 +7,12 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        fillListWithRange(1, 10);
-        Console.WriteLine(get_king_names(1932, 1962));
-        Console.WriteLine(get_king_names(1965, 1980));
-        Console.WriteLine(get_king_names(1980, 2010));
-        Console.WriteLine(get_king_names(2005, 2022));
-
+        Console.WriteLine(oct_to_bin(5252));
+        Console.WriteLine(oct_to_bin(777));
+        Console.WriteLine(oct_to_bin(123));
+        Console.WriteLine(oct_to_bin(6523));
         Console.ReadLine();
     }
-
-
 
 
     #region EasyProblems
@@ -648,6 +645,13 @@ public class Program
         arr = sortedArray.ToArray();
         return arr;
     }
+
+    public static string is_same(string name1, string name2)
+    {
+        // write your code here
+        return name1.Equals(name2) ? "متشابهتين" : "غير متشابهتين";
+
+    }
     #endregion
 
     #region MediumProblems
@@ -863,9 +867,197 @@ public class Program
 
         return $"{date} | {date.Replace('/', '-')} | {day}/{month}/{year}";
     }
+
+    public static bool stringContains(string firstName, string contains)
+    {
+        // write your code here
+        return firstName.Contains(contains);
+    }
     #endregion
 
     #region HardProblems
+    public static string oddsVsEvens(int num)
+    {
+        // write your code here
+        List<char> charArray = num.ToString().ToList();
+
+        List<int> numberArray = new();
+
+        foreach (var c in charArray)
+        {
+            string s = c.ToString();
+            numberArray.Add(int.Parse(s));
+        }
+
+        int odds = 0;
+        int evens = 0;
+
+        foreach (var number in numberArray.Where(number => number != 0))
+        {
+            if (number % 2 == 0)
+            {
+                evens += number;
+            }
+            else
+            {
+                odds += number;
+            }
+        }
+
+        if (evens > odds)
+        {
+            return "even";
+        }
+
+        if (evens < odds)
+        {
+            return "odd";
+        }
+
+        return "equal";
+    }
+
+    public static bool math_expr(string expr)
+    {
+        // write your code here
+        List<char> chars = new List<char> { '+', '-', '*', '/' };
+
+        foreach (char c in expr)
+        {
+            if (int.TryParse(c.ToString(), out _) || chars.Exists(i => i == c))
+            {
+                continue;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public static bool useRegex(String input)
+    {
+        Regex regexPlus = new("[0-9]+\\+[0-9]", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        Regex regexMin = new("[0-9]+-[0-9]", RegexOptions.IgnoreCase);
+        Regex regexProd = new("[0-9]+\\*[0-9]", RegexOptions.IgnoreCase);
+        Regex regexDiv = new("[0-9]+/[0-9]", RegexOptions.IgnoreCase);
+
+        if (regexPlus.IsMatch(input) || regexMin.IsMatch(input) || regexProd.IsMatch(input) || regexDiv.IsMatch(input))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static string addStrNums(string num1, string num2)
+    {
+        // write your code here
+
+        if (int.TryParse(num1, out _) && int.TryParse(num2, out _))
+        {
+            return (int.Parse(num1) + int.Parse(num2)).ToString();
+        }
+
+        return "-1";
+    }
+
+    public static int bin_to_oct(string b)
+    {
+        // write your code here
+        long Temp, BinaryNumber, p = 1, i = 1, j, d;
+        long DecimalNo = 0;
+        long OctalNo = 0;
+
+        Temp = Int64.Parse(b);
+
+        for (j = Temp; j > 0; j = j / 10)
+        {
+            d = j % 10;
+            if (i == 1)
+                p = p * 1;
+            else
+                p = p * 2;
+            DecimalNo = DecimalNo + (d * p);
+            i++;
+        }
+        i = 1;
+        for (j = DecimalNo; j > 0; j = j / 8)
+        {
+            OctalNo = OctalNo + (j % 8) * i;
+            i = i * 10;
+            BinaryNumber = Temp / 8;
+        }
+
+        return (int)OctalNo;
+    }
+
+    public static string cap_space(string txt)
+    {
+        // write your code here
+        List<string> res = new();
+
+        foreach (var t in txt)
+        {
+            if ((int)t is > 96 and < 123)
+            {
+                res.Add(t.ToString());
+                continue;
+            }
+
+            if ((int)t is > 64 and < 91)
+            {
+                res.Add(" ");
+                res.Add(t.ToString().ToLower());
+
+            }
+        }
+
+
+        return string.Join("", res);
+    }
+
+    public static string oct_to_bin(int octal)
+    {
+        // write your code here
+        string octalS = octal.ToString();
+        int i = 0;
+        string binary = "";
+        while (i < octalS.Length)
+        {
+            char c = octalS[i];
+            switch (c)
+            {
+                case '0':
+                    binary += "000";
+                    break;
+                case '1':
+                    binary += "1";
+                    break;
+                case '2':
+                    binary += "010";
+                    break;
+                case '3':
+                    binary += "011";
+                    break;
+                case '4':
+                    binary += "100";
+                    break;
+                case '5':
+                    binary += "101";
+                    break;
+                case '6':
+                    binary += "110";
+                    break;
+                case '7':
+                    binary += "111";
+                    break;
+            }
+            i++;
+        }
+
+        return binary;
+    }
 
 
 
@@ -1130,8 +1322,6 @@ public class Program
         return names.ToArray();
     }
 
-    #endregion
-
     public static List<int> fillListWithRange(int from, int to)
     {
         List<int> res = new List<int>();
@@ -1144,39 +1334,8 @@ public class Program
 
         return res;
     }
+
+    #endregion
+
+
 }
-
-
-//List<string> names = new List<string>();
-
-//if ((1932 <= year2 && 1932 >= year1) || (1953 >= year1 && 1953 <= year2))
-//{
-//    names.Add("عبدالعزيز");
-//}
-//if ((1953 <= year2 && 1953 >= year1) || (1964 >= year1 && 1964 <= year2))
-//{
-//    names.Add("سعود");
-//}
-//if ((1964 <= year2 && 1964 >= year1) || (1975 >= year1 && 1975 <= year2))
-//{
-//    names.Add("فيصل");
-//}
-//if ((1975 <= year2 && 1975 >= year1) || (1982 >= year1 && 1982 <= year2))
-//{
-//    names.Add("خالد");
-//}
-//if ((1982 <= year2 && 1982 >= year1) || (2005 >= year1 && 2005 <= year2))
-//{
-//    names.Add("فهد");
-//}
-//if ((2005 <= year2 && 2005 >= year1) || (2015 >= year1 && 2015 <= year2))
-//{
-//    names.Add("عبدالله");
-//}
-//if ((2015 <= year2 && 2015 >= year1) || (2022 >= year1 && 2022 <= year2))
-//{
-//    names.Add("سلمان");
-//}
-
-
-//return names.ToArray();
